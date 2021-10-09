@@ -1,0 +1,19 @@
+{
+  "name": "mercadolibre-test-api",
+  "version": "1.0.0",
+  "description": "api",
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.22.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "start:dev": "nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
