@@ -78,9 +78,7 @@ const createSearchJson = ({ data }) => ({
         `0.${item['prices']['prices'][0]['amount'].toString().split('.')[1]}`
       ),
     },
-    picture: {
-      thumbnail: item['thumbnail'],
-    },
+    picture: item['thumbnail'],
     condition: item['condition'],
     free_shipping: item['shipping']['free_shipping'],
   })),
