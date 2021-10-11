@@ -1,16 +1,14 @@
 const axios = require('axios').default
 
 const { createItemJson, createSearchJson } = require('./response.service')
-
 const { BASE_URL_API } = require('./../config/environment')
 
 const fetchByItemQuery = async (req, res, next) => {
   if (req.query['q']) {
     const { data } = await axios.get(`${BASE_URL_API}/sites/MLA/search`, {
       params: { q: req.query['q'] },
-    })
-    res.send(data)
-    //res.send(createSearchJson({ data: data }))
+    }) //res.send(data)
+    res.send(createSearchJson({ data: data }))
   } else res.send({ error: 'Invalid query params' })
 }
 
