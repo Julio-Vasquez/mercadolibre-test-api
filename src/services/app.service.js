@@ -7,24 +7,27 @@ const fetchByItemQuery = async (req, res, next) => {
   if (req.query['q']) {
     const { data } = await axios.get(`${BASE_URL_API}/sites/MLA/search`, {
       params: { q: req.query['q'] },
-    }) //res.send(data)
+    })
     res.send(createSearchJson({ data: data }))
   } else res.send({ error: 'Invalid query params' })
 }
 
 const fetchByItemId = async (req, res, next) => {
   const { id } = req.params
-  Promise.all([
-    await axios.get(`${BASE_URL_API}/items/${id}`),
-    await axios.get(`${BASE_URL_API}/items/${id}/description`),
-  ]).then(response => {
-    //res.send({ ...response[0].data, ...response[1].data })
-    res.send(
-      createItemJson({
-        data: { ...response[0].data, ...response[1].data },
-      })
-    )
-  })
+  try {
+    Promise.all([
+      await axios.get(`${BASE_URL_API}/items/${id}`),
+      await axios.get(`${BASE_URL_API}/items/${id}/description`),
+    ]).then(response => {
+      res.send(
+        createItemJson({
+          data: { ...response[0].data, ...response[1].data },
+        })
+      )
+    })
+  } catch (error) {
+    res.status(error.response.status).send({ message: error.message })
+  }
 }
 
 module.exports = {
