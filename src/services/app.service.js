@@ -5,10 +5,14 @@ const { BASE_URL_API } = require('./../config/environment')
 
 const fetchByItemQuery = async (req, res, next) => {
   if (req.query['q']) {
-    const { data } = await axios.get(`${BASE_URL_API}/sites/MLA/search`, {
-      params: { q: req.query['q'] },
-    })
-    res.send(createSearchJson({ data: data }))
+    try {
+      const { data } = await axios.get(`${BASE_URL_API}/sites/MLA/search`, {
+        params: { q: req.query['q'] },
+      })
+      res.send(createSearchJson({ data: data }))
+    } catch (err) {
+      res.send({ ...err })
+    }
   } else res.send({ error: 'Invalid query params' })
 }
 
